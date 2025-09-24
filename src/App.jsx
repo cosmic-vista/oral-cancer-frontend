@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 function App() {
   const [file, setFile] = useState(null);
   const [prediction, setPrediction] = useState("");
@@ -18,16 +19,13 @@ function App() {
 
     try {
       const res = await axios.post(
-        "https://xg4m51rz-5000.inc1.devtunnels.ms/predict",
+        `{API_URL}/predict`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
-      // await axios.post("http://localhost:3000/upload", formData, {
-      //   headers: { "Content-Type": "multipart/form-data" },
-      // });
       setPrediction(res.data.prediction);
     } catch (err) {
       console.error(err);
